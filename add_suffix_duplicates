@@ -1,0 +1,10 @@
+def add_suffix_duplicates(df,groupby_col,change_col,sep="_"):
+    df_c=df.copy()
+    if type(groupby_col)!=type([]):
+        raise("groupby_col should be a list")
+    ## calculate the order of samples in the subgroup
+    df_c["order"]=df_c.groupby(groupby_col).cumcount()
+    df_c["order"]=df_c["order"].astype(str)
+    ## add the suffix to the change_col
+    df_c[change_col]=df_c[change_col]+sep+df_c["order"]
+    return(df_c)
